@@ -9,8 +9,6 @@ export default class ClockItem extends Component {
       minute: 0,
       second: 0,
     };
-    this.itemClock = props.clocksSetup;
-    this.itemClose = props.onClose;
     this.timeInterval = null;
     this.setClock = this.setClock.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -39,7 +37,7 @@ export default class ClockItem extends Component {
     return (
       <React.Fragment>
         <div className='item-clock'>
-          <p>{this.itemClock.name}</p>
+          <p>{this.props.clocksSetup.name}</p>
           <svg width="150px" height="150px">
             <g transform="translate(75,75)">
               <g id="hour" transform={rotateArrow.hour}>
@@ -64,12 +62,12 @@ export default class ClockItem extends Component {
   }
 
   handleClose() {
-    this.itemClose(this.itemClock.id);
+    this.props.onClose(this.props.clocksSetup.id);
   }
 
   setClock() {
     const date = new Date();
-    const h = parseInt(date.getUTCHours(), 10) + parseInt(this.itemClock.timeZone, 10);
+    const h = parseInt(date.getUTCHours(), 10) + parseInt(this.props.clocksSetup.timeZone, 10);
     // h = h > 12 ? h-12: h;
     const m = parseInt(date.getUTCMinutes(), 10);
     const s = parseInt(date.getUTCSeconds(), 10);
